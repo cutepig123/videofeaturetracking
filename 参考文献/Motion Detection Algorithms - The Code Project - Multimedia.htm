@@ -1,0 +1,2799 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0056)http://www.codeproject.com/cs/media/Motion_Detection.asp -->
+<HTML><HEAD><TITLE>Motion Detection Algorithms - The Code Project - Multimedia</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<META content=en-US name=MS.LOCALE>
+<META content="Some approaches to detect motion in a video stream." 
+name=Description>
+<META content=kbArticle name=Search.TopicType>
+<META content="Andrew Kirillov" name=Author>
+<META content="29 Apr 2005 22:17:00 GMT" name=Search.PublishDate>
+<META content="10 Apr 2006 21:36:00 GMT" name=Search.RevisedDate><!--<meta name="Search.UserRating"  content="86 %" /> -->
+<META 
+content="Free source code, Multimedia, Visual C++, MFC, Windows, Image Processing, Motion Detection, Multimedia" 
+name=keywords>
+<META 
+content="Article content copyright Andrew Kirillov, 2005, everthing else Copyright © CodeProject, 1999-2006, All Rights Reserved." 
+name=Copyright><LINK title="CodeProject Lounge Postings" 
+href="http://www.codeproject.com/webservices/LoungeRSS.aspx" 
+type=application/rss+xml rel=alternate><LINK 
+title="CodeProject Latest articles - All topics" 
+href="http://www.codeproject.com/webservices/articlerss.aspx?cat=1" 
+type=application/rss+xml rel=alternate><LINK 
+title="CodeProject Latest articles - MFC / C++" 
+href="http://www.codeproject.com/webservices/articlerss.aspx?cat=2" 
+type=application/rss+xml rel=alternate><LINK 
+title="CodeProject Latest articles - C#" 
+href="http://www.codeproject.com/webservices/articlerss.aspx?cat=3" 
+type=application/rss+xml rel=alternate><LINK 
+title="CodeProject Latest articles - ASP.NET" 
+href="http://www.codeproject.com/webservices/articlerss.aspx?cat=4" 
+type=application/rss+xml rel=alternate><LINK 
+title="CodeProject Latest articles - .NET" 
+href="http://www.codeproject.com/webservices/articlerss.aspx?cat=5" 
+type=application/rss+xml rel=alternate>
+<META http-equiv=Reply-to content=mailto:webmaster@codeproject.com><LINK 
+href="/favicon.ico" type=image/ico rel=icon><LINK href="/favicon.ico" 
+rel="SHORTCUT ICON"><LINK 
+href="Motion Detection Algorithms - The Code Project - Multimedia.files/global.css" 
+type=text/css rel=stylesheet>
+<SCRIPT language=javascript 
+src="Motion Detection Algorithms - The Code Project - Multimedia.files/oncopy.js"></SCRIPT>
+
+<META content="MSHTML 6.00.2900.2873" name=GENERATOR></HEAD>
+<BODY oncopy="return copyCode();" text=black vLink=purple aLink=red link=blue 
+bgColor=white leftMargin=3 topMargin=3><!-- COPYRIGHT 2006 I/PRO Corporation ALL RIGHTS RESERVED. - Page view auditing -->
+<SCRIPT language=JavaScript>
+var LSPT="";
+LSPT += "?durl=" + escape(document.URL);
+LSPT += "&hostname=" + location.hostname;
+LSPT += "&url=" + location.pathname;
+LSPT += "&query=" + escape(location.search) + escape(location.hash);
+LSPT += "&referrer=" + escape(document.referrer);
+LSPT += "&browser=" + escape(navigator.appName);
+LSPT += "&version=" + escape(navigator.appVersion);
+LSPT += "&os=" + escape(navigator.platform);
+LSPT += "&xdomain=codeproject.com";
+LSPT += "&custid=codeproject";
+</SCRIPT>
+
+<SCRIPT language=Javascript>
+document.write('<img src=http://'+'content.ipro.com/images/pixel.gif'+LSPT+' height="1" width="1" style="position:absolute; top:0px; left:0px">');
+</SCRIPT>
+<NOSCRIPT><IMG style="LEFT: 0px; POSITION: absolute; TOP: 0px" height=1 src="" 
+width=1> </NOSCRIPT><!-- END I/PRO PAGE TAG -->
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#ff9900 border=0>
+  <TBODY>
+  <TR>
+    <TD width="100%">
+      <TABLE cellSpacing=1 cellPadding=0 width="100%" bgColor=#ff9900 
+        border=0><TBODY>
+        <TR>
+          <TD vAlign=top><A href="http://www.codeproject.com/"><IMG height=72 
+            alt="The Code Project" 
+            src="Motion Detection Algorithms - The Code Project - Multimedia.files/logo225x72.gif" 
+            width=225 border=0></A></TD>
+          <TD align=right><SPAN id=AdBanner4>
+            <TABLE cellSpacing=0 cellPadding=0>
+              <TBODY>
+              <TR>
+                <TD><A class=AdLink 
+                  href="http://www.codeproject.com/script/admentor/ads.asp">View 
+                  our advertisers</A></TD>
+                <TD align=right><A class=AdLink 
+                  href="http://www.codeproject.com/info/mediakit">Advertise with 
+                  us</A></TD></TR>
+              <TR>
+                <TD colSpan=2>
+                  <SCRIPT language=javascript>document.write("<a href=\"/script/admentor/admentorredir.asp?id=1709&way=ban\" target=_blank><img src=\"/script/ann/ServeImg.aspx?File=%2Fscript%2Fadmentor%2Fimages%2FUltimateToolbox2005%5F468x60%2Egif&C=False&id=1709&cb=1391484\" alt=\"Ultimate Toolbox 2005 - MFC 8 Compliant, with Office 2003 like and Office XP like classes and hundreds more, all with 100% MFC source code\" border=0 width=468 height=60></a>");</SCRIPT>
+                </TD></TR></TBODY></TABLE></SPAN></TD></TR>
+        <TR>
+          <TD bgColor=#fbedbb colSpan=2>
+            <TABLE cellPadding=3 width="100%" bgColor=#fbedbb border=0>
+              <TBODY>
+              <TR vAlign=top>
+                <TD width="100%"><FONT style="FONT-SIZE: 8pt"><A 
+                  href="http://www.codeproject.com/?cat=1">All Topics</A>, <A 
+                  href="http://www.codeproject.com/?cat=3">C#</A>, <A 
+                  href="http://www.codeproject.com/?cat=5">.NET</A> &gt;&gt; <A 
+                  href="http://www.codeproject.com/cs/media/">Multimedia</A> 
+                  &gt;&gt; <A 
+                  href="http://www.codeproject.com/cs/media/#General">General</A></FONT><BR><BR><B><FONT 
+                  style="FONT-SIZE: 16pt" size=4>Motion Detection 
+                  Algorithms</FONT></B><BR><B>By <A 
+                  href="http://www.codeproject.com/script/profile/whos_who.asp?id=1181072">Andrew 
+                  Kirillov</A> </B><BR><BR><FONT style="FONT-SIZE: 9pt">Some 
+                  approaches to detect motion in a video stream.&nbsp;</FONT> 
+</TD>
+                <TD vAlign=top align=right>
+                  <TABLE cellSpacing=0 cellPadding=1 width=200 border=0>
+                    <TBODY>
+                    <TR vAlign=top>
+                      <TD>&nbsp;</TD>
+                      <TD class=SmallText>C++ (VC7), C#<BR>Windows, .NET (.NET 
+                        1.0, .NET 1.1)<BR>Win32, VS (VS.NET2002, VS.NET2003), 
+                        GDI+<BR>Arch, Dev</TD></TR>
+                    <TR>
+                      <TD>&nbsp;</TD>
+                      <TD class=SmallText noWrap>Posted 30 Apr 2005 8:17</TD></TR>
+                    <TR>
+                      <TD>&nbsp;</TD>
+                      <TD class=SmallText>Updated 11 Apr 2006 7:36</TD></TR>
+                    <TR vAlign=top>
+                      <TD><IMG height=16 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/hlp.gif" 
+                        width=16></TD>
+                      <TD class=SmallText noWrap><A 
+                        href="http://www.codeproject.com/script/Articles/list_articles.asp?userid=1181072">Articles 
+                        by this author</A></TD></TR>
+                    <TR vAlign=top>
+                      <TD></TD>
+                      <TD class=SmallText noWrap><B>113,302</B> 
+                    views</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD colSpan=2>
+            <TABLE id=tblSiteToolbar cellSpacing=0 cellPadding=1 width="100%" 
+            border=0>
+              <TBODY>
+              <TR>
+                <FORM name=Search action=/info/search.asp method=post>
+                <TD vAlign=top align=left width="100%">
+                  <TABLE cellSpacing=0 cellPadding=1 border=0>
+                    <TBODY>
+                    <TR vAlign=center>
+                      <TD class=smallText><B><FONT 
+                        color=white>Search:</FONT></B></TD>
+                      <TD class=navbar noWrap><INPUT class=smallText 
+                        maxLength=255 size=18 name=target></TD>
+                      <TD vAlign=top><SELECT class=smallText name=st> 
+                          <OPTION value=kw selected>Articles</OPTION> <OPTION 
+                          value=au>Authors</OPTION></SELECT></TD>
+                      <TD><INPUT class=formButton type=submit value=Go></TD></TR></TBODY></TABLE></TD></FORM>
+                <TD>
+                  <DIV id=MenuPos 
+                  style="WIDTH: 380px; POSITION: relative; HEIGHT: 20px">
+                  <TABLE height=20 cellSpacing=0 cellPadding=2 width=375>
+                    <TBODY>
+                    <TR>
+                      <TD><A class=NavMenuItem 
+                        href="http://www.codeproject.com/info/faq.asp">Help!</A></TD>
+                      <TD><A class=NavMenuItem 
+                        href="http://www.codeproject.com/info/latest.asp">Articles</A></TD>
+                      <TD><A class=NavMenuItem 
+                        href="http://www.codeproject.com/script/comments/forums.asp">Message 
+                        Boards</A></TD>
+                      <TD><A class=NavMenuItem 
+                        href="http://www.codeproject.com/store/">StoreFront</A></TD>
+                      <TD><A class=NavMenuItem 
+                        href="http://www.codeproject.com/lounge.asp">Lounge</A></TD></TR></TBODY></TABLE></DIV></TD></TR></TBODY></TABLE>
+            <SCRIPT type=text/javascript>function Go(){return}</SCRIPT>
+
+            <SCRIPT 
+            src="Motion Detection Algorithms - The Code Project - Multimedia.files/cpmenu_var.js" 
+            type=text/javascript></SCRIPT>
+
+            <SCRIPT 
+            src="Motion Detection Algorithms - The Code Project - Multimedia.files/menu10_com.js" 
+            type=text/javascript></SCRIPT>
+          </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<TABLE cellSpacing=0 cellPadding=1 border=0>
+  <TBODY>
+  <TR vAlign=top>
+    <TD vAlign=top bgColor=#fbedbb rowSpan=2>
+      <TABLE cellSpacing=0 cellPadding=0 border=0>
+        <SCRIPT language=javascript>
+function ErrorHandle() {}
+window.onerror = ErrorHandle;
+
+function OnNLSubmit(option)
+{
+	if (option=="up")
+		document.subForm.action = "/script/profile/modify.asp?ct=%2Fcs%2Fmedia%2FMotion%5FDetection%2Easp";
+	else if (option=="in")
+		document.subForm.action = "/script/profile/process_logon.asp?ct=%2Fcs%2Fmedia%2FMotion%5FDetection%2Easp";
+	document.subForm.submit();
+	return true;
+}
+</SCRIPT>
+
+        <TBODY>
+        <TR>
+          <TD>
+            <TABLE cellSpacing=3 cellPadding=0>
+              <TBODY>
+              <TR vAlign=top>
+                <TD></TD>
+                <TD></TD></TR>
+              <TR vAlign=top>
+                <TD><IMG height=16 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/support_icon.gif" 
+                  width=16></TD>
+                <TD class=smallText><A 
+                  href="http://www.codeproject.com/store/"><B>Ultimate 
+                  Combo<BR>MFC tools $399</B></A></TD></TR>
+              <TR vAlign=top>
+                <TD></TD>
+                <TD></TD></TR></TR>
+              <TR vAlign=top>
+                <TD><IMG height=16 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/mail.gif" 
+                  width=16></TD>
+                <TD class=SmallText><A 
+                  href="http://www.codeproject.com/script/recommend/form.asp?guid=Motion%5FDetection%2Fcs%2Fmedia4%2F30%2F2005">Send 
+                  to a friend</A></TD></TR>
+              <TR vAlign=top>
+                <TD></TD>
+                <TD></TD></TR>
+              <TR vAlign=top>
+                <TD></TD>
+                <TD class=InfoBarHeader>My Profile</TD></TR>
+              <TR>
+                <TD bgColor=black colSpan=2><IMG height=1 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/space.gif" 
+                  width=1></TD></TR>
+              <TR vAlign=top>
+                <TD><IMG height=16 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/profile_small.gif" 
+                  width=16></TD>
+                <TD class=smallText><A 
+                  href="http://www.codeproject.com/script/profile/modify.asp?ct=/cs/media/Motion_Detection.asp">My 
+                  Settings</A></TD></TR>
+              <TR vAlign=top>
+                <TD><IMG height=16 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/submit_small.gif" 
+                  width=16></TD>
+                <TD class=smallText><A 
+                  href="http://www.codeproject.com/script/articles/list_articles.asp?userid=2784809">My 
+                  Articles</A></TD></TR>
+              <TR vAlign=top>
+                <TD><IMG height=16 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/bookmarks.gif" 
+                  width=16></TD>
+                <TD class=smallText><A 
+                  href="http://www.codeproject.com/script/profile/bookmark_list.asp">My 
+                  Bookmarks</A></TD></TR>
+              <TR vAlign=top>
+                <TD><IMG height=16 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/logoff_small.gif" 
+                  width=16></TD>
+                <TD class=smallText><A 
+                  href="http://www.codeproject.com/script/profile/logoff.asp?ct=/cs/media/Motion_Detection.asp">Sign 
+                  out</A></TD></TR>
+              <TR>
+                <TD bgColor=black colSpan=2><IMG height=1 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/space.gif" 
+                  width=1></TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD>&nbsp;</TD></TR>
+        <TR>
+          <TD>
+            <CENTER>
+            <SCRIPT language=javascript>document.write("<a href=\"/script/admentor/admentorredir.asp?id=1708&way=ban\" target=_blank><img src=\"/script/ann/ServeImg.aspx?File=%2Fscript%2Fadmentor%2Fimages%2FUltimateToolbox2005%5F120x60%2Egif&C=False&id=1708&cb=1391488\" alt=\"Ultimate Toolbox 2005 - MFC 8.0 Compliant, with Office 2003 like and Office XP like classes and hundreds more, all with 100% MFC source code\" border=0 width=120 height=600></a>");</SCRIPT>
+            <BR></CENTER><BR></TD></TR></TBODY></TABLE></TD>
+    <TD width=5 rowSpan=2><IMG height=1 
+      src="Motion Detection Algorithms - The Code Project - Multimedia.files/space.gif" 
+      width=5> </TD>
+    <TD align=right width="100%" bgColor=white>
+      <TABLE width="100%">
+        <TBODY>
+        <TR vAlign=top>
+          <TD class=smallText vAlign=top noWrap>
+            <TABLE>
+              <TBODY>
+              <TR>
+                <TD class=smallText bgColor=#ffffff><IMG 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/print.gif" 
+                  align=absMiddle> <A 
+                  href="http://www.codeproject.com/cs/media/Motion_Detection.asp?print=true" 
+                  target=_print>Print</A></TD>
+                <TD class=smallText bgColor=#ffffff><IMG 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/sitebuild_icon.gif" 
+                  align=absMiddle><A 
+                  href="http://www.codeproject.com/script/submit/ReportProblem.asp?GUID=Motion%5FDetection%2Fcs%2Fmedia4%2F30%2F2005">Broken 
+                  Article?</A></TD>
+                <TD class=smallText bgColor=#ffffff><IMG 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/link.gif" 
+                  align=absMiddle><A 
+                  href="http://www.codeproject.com/script/profile/add_bookmark.asp?t=0&amp;ct=%2Fcs%2Fmedia%2FMotion%5FDetection%2Easp&amp;guid=Motion%5FDetection%2Fcs%2Fmedia4%2F30%2F2005">Bookmark</A></TD>
+                <TD class=smallText bgColor=#ffffff><IMG 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/mail_small.gif" 
+                  align=absMiddle> <A 
+                  href="http://www.codeproject.com/cs/media/Motion_Detection.asp#__comments">Discuss</A></TD></TR></TBODY></TABLE></TD>
+          <TD noWrap align=right><A name=__top></A>
+            <TABLE>
+              <TBODY>
+              <TR>
+                <TD class=smallText align=right>229 votes for this article.</TD>
+                <TD>
+                  <TABLE cellSpacing=0 cellPadding=0 border=2>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG height=5 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/red.gif" 
+                        width=20 border=0></TD>
+                      <TD><IMG height=5 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/red.gif" 
+                        width=20 border=0></TD>
+                      <TD><IMG height=5 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/red.gif" 
+                        width=20 border=0></TD>
+                      <TD><IMG height=5 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/red.gif" 
+                        width=20 border=0></TD>
+                      <TD><IMG height=5 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/red.gif" 
+                        width=17 border=0><IMG height=5 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/white.gif" 
+                        width=3 border=0></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD class=smallText align=right colSpan=2><A 
+                  title="Calculated as rating x Log10(# votes)" 
+                  href="http://www.codeproject.com/script/articles/top_articles.asp?st=2">Popularity: 
+                  11.39</A>. Rating: <B>4.83</B> out of 
+        5.</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD vAlign=top width="100%">
+      <DIV id=contentdiv><!-- Article Starts -->
+      <UL class=download>
+        <LI><A 
+        href="http://www.codeproject.com/cs/media/Motion_Detection/motion_demo.zip">Download 
+        demo - 101 Kb</A> 
+        <LI><A 
+        href="http://www.codeproject.com/cs/media/Motion_Detection/motion_src.zip">Download 
+        source - 152 Kb</A> </LI></UL>
+      <P><IMG height=380 
+      src="Motion Detection Algorithms - The Code Project - Multimedia.files/motion.jpg" 
+      width=421></P>
+      <H2>Introduction</H2>
+      <P>There are many approaches for motion detection in a continuous video 
+      stream. <span style="background-color: #FFFF00">All of them are based on the comparison of the current video frame 
+      with one from the previous frames or with something that we call 
+      background.</span> In this article, I'll try to describe some of the most common 
+      approaches.</P>
+      <P>While describing the algorithms <span style="background-color: #FFFF00">I'll use the image processing library 
+      that I've described in my </span> <A 
+      href="http://www.codeproject.com/cs/media/Image_Processing_Lab.asp">
+		<span style="background-color: #FFFF00">previous 
+      article</span></A>.</P>
+      <P>The demo applications support the following types of video sources:</P>
+      <UL>
+        <LI>AVI files (using Video for Windows, interop library is included); 
+        <LI>Updating JPEG from internet cameras; 
+        <LI>MJPEG (motion JPEG) streams from different internet cameras; 
+        <LI>MMS stream - Microsoft Media Services; 
+        <LI>Local capture device (USB cameras or other capture devices, 
+        DirectShow interop library is included). </LI></UL>
+      <H2>Algorithms</H2>
+      <P><span style="background-color: #FFFF00">One of the most common approaches is to compare the current frame with 
+      the previous one</span>. It's useful in video compression when you need to 
+      estimate changes and write only the changes, not the whole frame. But it 
+      is not the best one for motion detection applications. Let me describe the 
+      idea more closely.</P>
+      <P>Assume that we have an original 24 bpp RGB image called 
+		<font color="#FF00FF">current frame 
+      (</font><CODE><font color="#FF00FF">image</font></CODE><font color="#FF00FF">)</font>, 
+		<span style="background-color: #FFFF00">a grayscale copy of it (</span><CODE><span style="background-color: #FFFF00">currentFrame</span></CODE><span style="background-color: #FFFF00">)</span> 
+      and a <span style="background-color: #FFFF00">previous video frame also gray scaled 
+      (</span><CODE><span style="background-color: #FFFF00">backgroundFrame</span></CODE><span style="background-color: #FFFF00">)</span>. First of all, 
+		<span style="background-color: #FFFF00">let's find the regions where 
+      these two frames differ a bit. For this purpose, we can use </span> 
+      <CODE><span style="background-color: #FFFF00">Difference</span></CODE><span style="background-color: #FFFF00"> and 
+		</span> <CODE><span style="background-color: #FFFF00">Threshold</span></CODE><span style="background-color: #FFFF00"> filters</span>:</P><PRE lang=cs><SPAN class=cs-comment>// create filters</SPAN>
+Difference differenceFilter = <SPAN class=cs-keyword>new</SPAN> Difference( );
+IFilter thresholdFilter = <SPAN class=cs-keyword>new</SPAN> Threshold( <SPAN class=cs-literal>15</SPAN>, <SPAN class=cs-literal>255</SPAN> );
+<SPAN class=cs-comment>// set backgroud frame as an overlay for difference filter</SPAN>
+differenceFilter.OverlayImage = backgroundFrame;
+<SPAN class=cs-comment>// apply the filters</SPAN>
+Bitmap tmp1 = differenceFilter.Apply( currentFrame );
+Bitmap tmp2 = thresholdFilter.Apply( tmp1 );</PRE>
+      <P>In this step, we get an image with white pixels in the place where the 
+      current frame is different from the previous frame on the specified 
+      threshold value. It's possible to count the pixels, and if the amount is 
+      greater than a predefined alarm level we can signal a motion event.</P>
+      <P>But most cameras produce a noisy image, so we get motion in places, 
+      where there is no motion at all. To remove random noisy pixels, we can use 
+      an <CODE>Erosion</CODE> filter. So, now we get only the regions where 
+      there is actual motion:</P><PRE lang=cs><SPAN class=cs-comment>// create filter</SPAN>
+IFilter erosionFilter = <SPAN class=cs-keyword>new</SPAN> Erosion( );
+<SPAN class=cs-comment>// apply the filter </SPAN>
+Bitmap tmp3 = erosionFilter.Apply( tmp2 );</PRE>
+      <P><span style="background-color: #FFFF00">The simplest motion detector is ready! We can highlight the motion 
+      regions if needed:</span></P><PRE lang=cs><SPAN class=cs-comment>// extract red channel from the original image</SPAN>
+IFilter extrachChannel = <SPAN class=cs-keyword>new</SPAN> ExtractChannel( RGB.R );
+Bitmap redChannel = extrachChannel.Apply( image );
+<SPAN class=cs-comment>//  merge red channel with motion regions</SPAN>
+Merge mergeFilter = <SPAN class=cs-keyword>new</SPAN> Merge( );
+mergeFilter.OverlayImage = tmp3;
+Bitmap tmp4 = mergeFilter.Apply( redChannel );
+<SPAN class=cs-comment>// replace red channel in the original image</SPAN>
+ReplaceChannel replaceChannel = <SPAN class=cs-keyword>new</SPAN> ReplaceChannel( RGB.R );
+replaceChannel.ChannelImage = tmp4;
+Bitmap tmp5 = replaceChannel.Apply( image );</PRE>
+      <P>Here is the result of it:</P>
+      <P><IMG height=288 
+      src="Motion Detection Algorithms - The Code Project - Multimedia.files/1.jpg" 
+      width=352></P>
+      <P>From the above picture the disadvantages of the approach are quite 
+      clear. <span style="background-color: #FFFF00">If the object is moving smoothly we receive small changes from 
+      frame to frame. So, it's impossible to get the whole moving object.</span> Things 
+      become worse, when the object moves slowly, then the algorithms do not 
+      give any result at all.</P>
+      <P>There is another approach. It's possible to compare the current frame 
+      not with the previous one but with the first frame in the video sequence. 
+      So, if there were no objects in the initial frame, comparison of the 
+      current frame with the first one will give us the whole moving object 
+      independent of its motion speed. But, the approach has a big disadvantage 
+      - what will happen, if there is, for example, a car in the first frame, 
+      and then it disappears? Yes, we'll always have motion detected in the 
+      place, where the car was. Of course, we can renew the initial frame, 
+		<font color="#FF0000">but 
+      still it will not give us good results in cases where we cannot guarantee 
+      that the first frame will contain only the static background. But, there 
+      can be an inverse situation. If I put a picture on the wall of a room, I 
+      get motion detected until the initial frame is renewed.</font></P>
+      <P><font color="#FF0000">The most efficient algorithms are based on building the so called 
+      background of the scene and comparing each current frame with the 
+      background.</font> There are many approaches to building the scene, but most of 
+      them are too complex. <font color="#FF0000">Here, I'll describe my approach for building the 
+      background. It's rather simple and can be realized very quickly.</font></P>
+      <P>As in the previous case, let's assume that we have an original 24 bpp 
+      RGB image called current frame (<CODE>image</CODE>), a grayscale copy of 
+      it (<CODE>currentFrame</CODE>) and a background frame also gray scaled 
+      (<CODE>backgroundFrame</CODE>). <font color="#FF0000">In the beginning, we get the first frame 
+      of the video sequence as the background frame. And then we compare the 
+      current frame with the background one. But it gives us the result that 
+      I've described above, which we obviously don't want. Our approach is to 
+      "move" the background frame to the current frame on the specified amount 
+      (I've used 1 level per frame). We slowly move the background frame in the 
+      direction of the current frame - we change the colors of the pixels in the 
+      background frame by one level per frame:</font></P><PRE lang=cs><SPAN class=cs-comment><font color="#FF0000">// create filter</font></SPAN><font color="#FF0000">
+MoveTowards moveTowardsFilter = </font><SPAN class=cs-keyword><font color="#FF0000">new</font></SPAN><font color="#FF0000"> MoveTowards( );
+</font><SPAN class=cs-comment><font color="#FF0000">// move background towards current frame</font></SPAN><font color="#FF0000">
+moveTowardsFilter.OverlayImage = currentFrame;
+Bitmap tmp = moveTowardsFilter.Apply( backgroundFrame );
+</font><SPAN class=cs-comment><font color="#FF0000">// dispose old background</font></SPAN><font color="#FF0000">
+backgroundFrame.Dispose( );
+backgroundFrame = tmp;</font></PRE>
+      <P>And now, we can use the same approach that we've used above. But, let 
+      me extend it slightly to get a more interesting result:</P><PRE lang=cs><SPAN class=cs-comment>// create processing filters sequence</SPAN>
+FiltersSequence processingFilter = <SPAN class=cs-keyword>new</SPAN> FiltersSequence( );
+processingFilter.Add( <SPAN class=cs-keyword>new</SPAN> Difference( backgroundFrame ) );
+processingFilter.Add( <SPAN class=cs-keyword>new</SPAN> Threshold( <SPAN class=cs-literal>15</SPAN>, <SPAN class=cs-literal>255</SPAN> ) );
+<span style="background-color: #FFFF00">processingFilter.Add( </span><SPAN class=cs-keyword><span style="background-color: #FFFF00">new</span></SPAN><span style="background-color: #FFFF00"> Opening( ) );
+processingFilter.Add( </span><SPAN class=cs-keyword><span style="background-color: #FFFF00">new</span></SPAN><span style="background-color: #FFFF00"> Edges( ) );
+</span><SPAN class=cs-comment><span style="background-color: #FFFF00">// apply the filter</span></SPAN>
+Bitmap tmp1 = processingFilter.Apply( currentFrame );
+
+<SPAN class=cs-comment>// extract red channel from the original image</SPAN>
+IFilter extrachChannel = <SPAN class=cs-keyword>new</SPAN> ExtractChannel( RGB.R );
+Bitmap redChannel = extrachChannel.Apply( image );
+<SPAN class=cs-comment>//  merge red channel with moving object borders</SPAN>
+Merge mergeFilter = <SPAN class=cs-keyword>new</SPAN> Merge( );
+mergeFilter.OverlayImage = tmp1;
+Bitmap tmp2 = mergeFilter.Apply( redChannel );
+<SPAN class=cs-comment>// replace red channel in the original image</SPAN>
+ReplaceChannel replaceChannel = <SPAN class=cs-keyword>new</SPAN> ReplaceChannel( RGB.R );
+replaceChannel.ChannelImage = tmp2;
+Bitmap tmp3 = replaceChannel.Apply( image );</PRE>
+      <P><IMG height=288 
+      src="Motion Detection Algorithms - The Code Project - Multimedia.files/2.jpg" 
+      width=352></P>
+      <P>Now it looks much better!</P>
+      <P>There is another approach based on this idea. As in the previous cases, 
+      we have an original frame and a gray scaled version of it and of the 
+      background frame. <span style="background-color: #FFFF00">Now, let's apply
+		</span> <CODE><span style="background-color: #FFFF00">Pixellate</span></CODE><span style="background-color: #FFFF00"> filter to the 
+      current frame and to the background before further processing:</span></P><PRE lang=cs><SPAN class=cs-comment>// create filter</SPAN>
+IFilter pixellateFilter = <SPAN class=cs-keyword>new</SPAN> Pixellate( );
+<SPAN class=cs-comment>// apply the filter</SPAN>
+Bitmap newImage = pixellateFilter( image );</PRE>
+      <P>So, we have pixellated versions of the current and background frames. 
+      Now, <span style="background-color: #FFFF00">we need to move the background frame towards the current frame as we 
+      did before. The next change is in the main processing step:</span></P><PRE lang=cs><SPAN class=cs-comment>// create processing filters sequence</SPAN>
+FiltersSequence processingFilter = <SPAN class=cs-keyword>new</SPAN> FiltersSequence( );
+processingFilter.Add( <SPAN class=cs-keyword>new</SPAN> Difference( backgroundFrame ) );
+processingFilter.Add( <SPAN class=cs-keyword>new</SPAN> Threshold( <SPAN class=cs-literal>15</SPAN>, <SPAN class=cs-literal>255</SPAN> ) );
+processingFilter.Add( <SPAN class=cs-keyword>new</SPAN> Dilatation( ) );
+processingFilter.Add( <SPAN class=cs-keyword>new</SPAN> Edges( ) );
+<SPAN class=cs-comment>// apply the filter</SPAN>
+Bitmap tmp1 = processingFilter.Apply( currentFrame );</PRE>
+      <P>After merging <CODE>tmp1</CODE> image with the red channel of the 
+      original image, we get the following image:</P>
+      <P><IMG height=288 
+      src="Motion Detection Algorithms - The Code Project - Multimedia.files/3.jpg" 
+      width=352></P>
+      <P>Even though it doesn't look as perfect as the previous one, the 
+      approach has a great possibility for performance optimization.</P>
+      <P>Looking at the previous picture, we can see that objects are 
+      highlighted with a curve, which represents the moving object's boundary. 
+      But sometimes it gets a rectangle of the object. 
+		<span style="background-color: #FFFF00">What to do if we want to 
+      highlight not just the objects, but get their count, position, width and 
+      height? I analyzed this issue: "Hmmm, it's possible, but not so trivial". 
+      Don't be afraid, it's easy.</span> It can be done using the 
+      <CODE>BlobCounter</CODE> class of my imaging library, which was developed 
+      recently. Using <CODE>BlobCounter</CODE> we can get the number of objects, 
+      their position and the dimension on a binary image. So, let's try to apply 
+      it. We'll apply it to the binary image containing moving objects, the 
+      result of a <CODE>Threshold</CODE> filter:</P><PRE class=cs><SPAN class=cpp-comment>// get object rectangles</SPAN>
+<span style="background-color: #FFFF00">Rectangle[] rects = 
+    BlobCounter.GetObjectRectangles(thresholdedImage);</span>
+<SPAN class=cpp-comment>// create graphics object from initial image</SPAN>
+Graphics g = Graphics.FromImage( image );
+<SPAN class=cpp-comment>// draw each rectangle</SPAN>
+using ( Pen pen = <SPAN class=cpp-keyword>new</SPAN> Pen( Color.Red, <SPAN class=cpp-literal>1</SPAN> ) )
+{
+    foreach ( Rectangle rc in rects )
+    {
+        g.DrawRectangle( pen, rc );
+
+        <SPAN class=cpp-keyword>if</SPAN> ( ( rc.Width &gt; <SPAN class=cpp-literal>15</SPAN> ) &amp;&amp; ( rc.Height &gt; <SPAN class=cpp-literal>15</SPAN> ) )
+        {
+            <SPAN class=cpp-comment>// here we can higligh large objects with </SPAN>
+            <SPAN class=cpp-comment>// something else</SPAN>
+        }
+    }
+}
+g.Dispose();</PRE>
+      <P>Here is the result of this small piece of code. Looks pretty. Oh, I 
+      forgot, in my original implementation, there was some code instead of that 
+      comment for processing large objects. So now we can see the small numbers 
+      on the objects:</P>
+      <P><IMG height=290 
+      src="Motion Detection Algorithms - The Code Project - Multimedia.files/4.jpg" 
+      width=354></P>
+      <H2>Motion alarm</H2>
+      <P>It is pretty easy to add motion alarm feature to all these motion 
+      detection algorithms. Each algorithm calculates a binary image containing 
+      the difference between the current frame and the background one. So, all 
+      that we need is just calculate the amount of white pixels on this 
+      difference image:</P><PRE class=cs><SPAN class=cpp-comment>// Calculate white pixels</SPAN>
+<SPAN class=cpp-keyword>private</SPAN> <SPAN class=cpp-keyword>int</SPAN> CalculateWhitePixels( Bitmap image )
+{
+    <SPAN class=cpp-keyword>int</SPAN> count = <SPAN class=cpp-literal>0</SPAN>;
+    <SPAN class=cpp-comment>// lock difference image</SPAN>
+    BitmapData data = image.LockBits( 
+        <SPAN class=cpp-keyword>new</SPAN> Rectangle( <SPAN class=cpp-literal>0</SPAN>, <SPAN class=cpp-literal>0</SPAN>, width, height ),
+        ImageLockMode.ReadOnly, PixelFormat.Format8bppIndexed );
+    <SPAN class=cpp-keyword>int</SPAN> offset = data.Stride - width;
+    unsafe
+    {
+        byte * ptr = (byte *) data.Scan0.ToPointer( );
+        <SPAN class=cpp-keyword>for</SPAN> ( <SPAN class=cpp-keyword>int</SPAN> y = <SPAN class=cpp-literal>0</SPAN>; y &lt; height; y++ )
+        {
+            <SPAN class=cpp-keyword>for</SPAN> ( <SPAN class=cpp-keyword>int</SPAN> x = <SPAN class=cpp-literal>0</SPAN>; x &lt; width; x++, ptr++ )
+            {
+                count += ( (*ptr) &gt;&gt; <SPAN class=cpp-literal>7</SPAN> );
+            }
+            ptr += offset;
+        }
+    }
+    <SPAN class=cpp-comment>// unlock image</SPAN>
+    image.UnlockBits( data );
+    <SPAN class=cpp-keyword>return</SPAN> count;
+}</PRE>
+      <P>For some algorithms it is even more simpler. For example, in the blob 
+      counting approach we can accumulate not only the white pixel's count, but 
+      also the area of each detected object. Now, if the computed amount of 
+      changes is greater than a predefined value, we can fire an alarm 
+event.</P>
+      <H2>Video saving</H2>
+      <P>There are many different ways of processing motion alarm event: just 
+      draw a blinking rectangle around the video, or play sound to attract 
+      attention. But, of course, the most useful one is video saving on motion 
+      detection. In the demo application, I used the <CODE>AVIWriter</CODE> 
+      class, which uses video for Windows interop to provide AVI files saving 
+      capabilities. Here is a small sample of using the class to write a small 
+      AVI file that draws a diagonal line:</P><PRE class=cs>SaveFileDialog sfd = <SPAN class=cpp-keyword>new</SPAN> SaveFileDialog( );
+<SPAN class=cpp-keyword>if</SPAN> ( sfd.ShowDialog( ) == DialogResult.OK )
+{
+    <span style="background-color: #FFFF00">AVIWriter writer = </span><SPAN class=cpp-keyword><span style="background-color: #FFFF00">new</span></SPAN><span style="background-color: #FFFF00"> AVIWriter( </span><SPAN class=cpp-string><span style="background-color: #FFFF00">"wmv3"</span></SPAN><span style="background-color: #FFFF00"> );</span>
+    <SPAN class=cpp-keyword>try</SPAN>
+    {
+        writer.Open( sfd.FileName, <SPAN class=cpp-literal>320</SPAN>, <SPAN class=cpp-literal>240</SPAN> );
+        Bitmap bmp = <SPAN class=cpp-keyword>new</SPAN> Bitmap( <SPAN class=cpp-literal>320</SPAN>, <SPAN class=cpp-literal>240</SPAN>, 
+                         PixelFormat.Format24bppRgb );
+        <SPAN class=cpp-keyword>for</SPAN> ( <SPAN class=cpp-keyword>int</SPAN> i = <SPAN class=cpp-literal>0</SPAN>; i &lt; <SPAN class=cpp-literal>100</SPAN>; i++ )
+        {
+            bmp.SetPixel( i, i, 
+                         Color.FromArgb( i, <SPAN class=cpp-literal>0</SPAN>, <SPAN class=cpp-literal>255</SPAN> - i ) );
+            writer.AddFrame( bmp );
+        }
+        bmp.Dispose( );
+    }
+    <SPAN class=cpp-keyword>catch</SPAN> ( ApplicationException ex )
+    {
+    }
+    writer.Dispose( );
+}</PRE>
+      <P><B>Note</B>: In this small sample and in the demo application I have 
+      used <A 
+      href="http://www.microsoft.com/downloads/details.aspx?FamilyID=0c99c648-5800-4aa3-a2fe-3de948689db8&amp;DisplayLang=en" 
+      target=_blank>Windows Media Video 9 VCM</A> codec.</P>
+      <H2>Conclusion</H2>
+      <P>I've described my ideas here. To use these ideas in real applications, 
+      you need to optimize its realization. I've used an image processing 
+      library for simplicity, it's not a video processing library. Besides, the 
+      library allows me to do research in different areas more quickly, than 
+      write optimized solutions from the beginning. A small sample of 
+      optimization can be found in the sources.</P>
+      <H2>History</H2>
+      <UL>
+        <LI>08-04-2006: 1.3 
+        <UL>
+          <LI>Motion alarm and video saving. </LI></UL>
+        <LI>22-08-2005: 1.2 
+        <UL>
+          <LI>Added fourth method (getting objects' rectangles with blob 
+          counter). </LI></UL>
+        <LI>01-06-2005: 1.1 
+        <UL>
+          <LI>Added support of local capture devices and MMS streams. </LI></UL>
+        <LI>30-04-2005: 1.0 
+        <UL>
+          <LI>Initial release. </LI></UL></LI></UL><!-- Article Ends --></DIV>
+      <H2>Andrew Kirillov</H2>
+      <TABLE width="100%" border=0>
+        <TBODY>
+        <TR vAlign=top>
+          <TD class=smallText noWrap><BR></TD>
+          <TD class=smallText width="100%">
+            <P class=smallText>Click <A 
+            href="http://www.codeproject.com/script/profile/whos_who.asp?vt=arts&amp;id=1181072">here</A> 
+            to view Andrew Kirillov's online 
+profile.</P></TD></TR></TBODY></TABLE><BR>
+      <TABLE cellPadding=4 width="100%" border=0>
+        <TBODY>
+        <TR vAlign=top>
+          <TD width="100%">
+            <H2>Other popular articles:</H2>
+            <UL>
+              <LI><A 
+              href="http://www.codeproject.com/cs/media/directxcapture.asp">DirectX.Capture 
+              Class Library</A><BR><SPAN class=smalltext>A .NET class library 
+              for capturing video and audio to AVI files.</SPAN>
+              <LI><A 
+              href="http://www.codeproject.com/cs/media/directshownet.asp">DirectShow.NET</A><BR><SPAN 
+              class=smalltext>DirectShow for DVD and file playback, capture and 
+              sample grabber</SPAN>
+              <LI><A 
+              href="http://www.codeproject.com/cs/media/OpenTheme.asp">OpenTheme 
+              : An open source graphic user interface (GUI) toolkit</A><BR><SPAN 
+              class=smalltext>An innovative alternative to XAML and XUL</SPAN>
+              <LI><A 
+              href="http://www.codeproject.com/cs/media/PrgmngDirectShowappsCS.asp">Programming 
+              DirectShow applications in C#: A set of tutorials</A><BR><SPAN 
+              class=smalltext>A collection of tutorials for programming 
+              DirectShow in C#.</SPAN></LI></UL></TD>
+          <TD width=360>
+            <SCRIPT language=javascript>document.write("<IFRAME src=\"/script/ann/ServeHTML.aspx?C=False&id=786&cb=1391489\" border=0 frameborder=0 scrolling=no width=300 height=250></IFRAME>");</SCRIPT>
+          </TD></TR></TBODY></TABLE>
+      <FORM action=/script/rating/code/app/insert_vote.asp method=post><INPUT 
+      type=hidden value=Motion_Detection/cs/media4/30/2005 name=vote_name> 
+      <INPUT type=hidden value=/cs/media/Motion_Detection.asp name=goal> 
+      <TABLE cellSpacing=0 cellPadding=1 width="100%" bgColor=#ff9900 
+        border=0><TBODY>
+        <TR>
+          <TD width="100%">
+            <TABLE cellSpacing=0 cellPadding=4 width="100%" bgColor=#fbedbb 
+            border=0>
+              <TBODY>
+              <TR>
+                <TD class=smalltext vAlign=center>[<A 
+                  href="http://www.codeproject.com/cs/media/Motion_Detection.asp#__top">Top</A>]</TD>
+                <TD vAlign=center noWrap align=right><I><B>Rate this Article 
+                  for us!</B></I>&nbsp;&nbsp;&nbsp;&nbsp; <I>Poor</I><INPUT 
+                  type=radio value=1 name=rate><INPUT type=radio value=2 
+                  name=rate><INPUT type=radio value=3 name=rate><INPUT 
+                  type=radio value=4 name=rate><INPUT type=radio value=5 
+                  name=rate><I>Excellent</I>&nbsp;&nbsp;<INPUT class=FormButton type=submit value=Vote> 
+                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></FORM>
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR vAlign=top>
+          <TD vAlign=top>
+            <CENTER>
+            <SCRIPT language=javascript>document.write("<a href=\"/script/admentor/admentorredir.asp?id=1734&way=ban\" target=_blank><img src=\"/script/ann/ServeImg.aspx?File=%2Fscript%2Fadmentor%2Fimages%2Fspread120x60%2Egif&C=False&id=1734&cb=1391491\" alt=\"\" border=0 width=120 height=60></a>");</SCRIPT>
+            </CENTER><BR></TD>
+          <TD vAlign=top noWrap align=middle><SPAN id=AdBanner5>
+            <SCRIPT language=javascript>document.write("<a href=\"/script/admentor/admentorredir.asp?id=1388&way=ban\" target=_blank><img src=\"/script/ann/ServeImg.aspx?File=%2Fscript%2Fadmentor%2Fimages%2FDundas%5F468x60%5FChart5%2Egif&C=False&id=1388&cb=1391484\" alt=\"Dundas Chart for .NET\" border=0 width=468 height=60></a>");</SCRIPT>
+            </SPAN></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE><A 
+name=__comments></A>
+<SCRIPT language=JavaScript>
+function MsgCategoryForm(MemberID, MsgID, MsgType)
+{
+	document.write("Rate this message: ");
+	document.write("<a href='#xx" + MsgID.toString() + "xx' onclick='CatMsg(" + MemberID.toString() + ", " + MsgID.toString() + ", " + MsgVoteGood.toString() + ")'>Good " + MsgType + "</a> ");
+	document.write("<a href='#xx" + MsgID.toString() + "xx' onclick='CatMsg(" + MemberID.toString() + ", " + MsgID.toString() + ", " + MsgVoteBad.toString() + ")'>Bad " + MsgType + "</a> ");
+	document.write("<a href='#xx" + MsgID.toString() + "xx' onclick='CatMsg(" + MemberID.toString() + ", " + MsgID.toString() + ", " + MsgVoteWrong.toString() + ")'>Innapropriate / Offtopic</a> ");
+	document.write("<a href='#xx" + MsgID.toString() + "xx' onclick='CatMsg(" + MemberID.toString() + ", " + MsgID.toString() + ", " + MsgVoteOffensive.toString() + ")'>Offensive</a> ");
+}
+function CatMsg(userid, msgid, Category) 
+{ 
+	open("/script/comments/vote.asp?js=1&user="+userid.toString()+"&msg="+msgid.toString()+"&score="+Category.toString() ,"helpful","toolbar=no,resizable=yes,scrollbars=yes,directories=no,menubar=no,width=300,height=200");
+	return false;
+}
+</SCRIPT>
+
+<SCRIPT language=JavaScript>
+function MsgVoteForm(MemberID, MsgID)
+{
+	document.write("<span id=\"MVF" + MsgID + "\">");
+	document.write("Rate this message: ");
+	for (var i=1; i<=5;i++)
+		document.write("<a href='#xx" + MsgID.toString() + "xx' title='give this message a vote of " + i.toString() + "' onclick='return RateMsg(" + MemberID.toString() + ", " + MsgID.toString() + ", " + i.toString() + ")'><b>" + i.toString() + "</b></a> ");
+	document.write(" (out of 5)");
+	document.writeln("</span>");
+}
+
+// bit is wrapped in a <span> or something with the id of "vote99999" where 99999 is the message ID
+function RateMsg(userid, msgid, score)
+{
+
+   var req = new ActiveXObject("Msxml2.XMLHTTP"); 
+
+   req.onreadystatechange = function()
+   {
+      if ( req.readyState == 4 )
+      {
+         if ( req.status == 200 )
+         {
+            if ( req.responseText.match(/You have already voted/) )
+               status.innerHTML = "<b style='color:red'>Sorry, can't vote twice... <img src='/script/images/smiley_wink.gif'></b>";
+            else
+               status.innerHTML = "<b>Voted: " + score + "</b>";
+         }
+         else
+         {
+            status.innerHTML = "<b style='color:red'>Failed!" + req.statusText + "</b>";
+         }
+      }
+   }
+   
+   var status = document.getElementById("MVF" + msgid);
+   if (!status)
+      return;  // should never happen...   
+   status.innerHTML = "<b style='color:green'>Voting...</b>";
+   
+   var strAction = "/script/comments/vote.asp?js=1&user="+userid+"&msg="+msgid+"&score="+score;
+   req.open("GET", strAction, true);
+   req.send(null);
+   return false;
+}
+
+</SCRIPT>
+
+<SCRIPT language=JavaScript>
+var Selected = "";
+
+var AdTime = new Date();
+
+function SwitchMessage(elm)
+{
+	
+	var elmref;
+	if (Selected != "")
+	{
+		elmref = eval("document.getElementById('" + Selected + "_h1')");
+		if (elmref) elmref.style.display = 'none';
+		elmref = eval("document.getElementById('" + Selected + "_h0')");
+		if (elmref) elmref.bgColor = '#FEF9E7';
+	}
+	if (Selected != elm.name) 
+	{
+		Selected = elm.name;
+		elmref = eval("document.getElementById('" + Selected + "_h1')");
+		if (elmref) 
+		{
+			if (elmref.style.display=='none') elmref.style.display='';
+			else elmref.style.display = 'none';
+		}
+		elmref = eval("document.getElementById('" + Selected + "_h0')");
+		if (elmref) 
+			elmref.bgColor = '#99CCFF';
+	}
+	else
+		Selected="";
+		
+	window.location = "#xx" + Selected + "xx";
+	return false;
+}
+
+
+</SCRIPT>
+
+<SCRIPT language=javascript event=onclick for=DynMessLink>
+return SwitchMessage(this);
+</SCRIPT>
+
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#ff9900 border=0>
+  <TBODY>
+  <TR>
+    <TD width="100%">
+      <TABLE id=ForumTable cellSpacing=1 cellPadding=0 width="100%" 
+      bgColor=#ff9900 border=0>
+        <FORM 
+        action=/script/comments/app/do_filtermessages.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045 
+        method=post>
+        <TBODY>
+        <TR>
+          <TD>
+            <TABLE cellSpacing=0 cellPadding=3 width="100%" bgColor=white 
+            border=0>
+              <TBODY>
+              <TR bgColor=#fbedbb>
+                <TD class=smalltext noWrap><A 
+                  href="http://www.codeproject.com/script/comments/faq.asp"><IMG 
+                  height=16 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/forum_faq.gif" 
+                  width=16 align=absMiddle border=0> <B>FAQ</B></A>&nbsp;</TD>
+                <TD class=smalltext vAlign=top noWrap align=right>Noise 
+                  tolerance <SELECT class=smalltext size=1 name=noise><OPTION 
+                    value=1>Very High</OPTION> <OPTION value=2>High</OPTION> 
+                    <OPTION value=3 selected>Medium</OPTION> <OPTION 
+                    value=4>Low</OPTION> <OPTION value=5>Very 
+                  low</OPTION></SELECT>&nbsp;&nbsp;</TD>
+                <TD class=smalltext vAlign=center noWrap align=right 
+                  colSpan=2><A 
+                  href="http://www.codeproject.com/script/comments/search_comments.asp?forumid=177045"><IMG 
+                  height=15 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/forum_search.gif" 
+                  width=16 border=0> Search comments</A> &nbsp;</TD>
+                <TD vAlign=top align=right><INPUT class=FormButton type=submit value="Set Options" name=submit></TD></TR>
+              <TR bgColor=#ff9900>
+                <TD width="100%">&nbsp;</TD>
+                <TD class=smalltext vAlign=top noWrap align=right>View <SELECT 
+                  class=smalltext size=1 name=expand><OPTION value=0>Normal 
+                    (slow)</OPTION> <OPTION value=2>Preview (slow)</OPTION> 
+                    <OPTION value=5 selected>Message View</OPTION> <OPTION 
+                    value=6>Topic View</OPTION> <OPTION value=1>Thread 
+                    View</OPTION> <OPTION value=3>Expanded (Supporters 
+                    only)</OPTION></SELECT>&nbsp;&nbsp;</TD>
+                <TD class=smalltext vAlign=top noWrap>Per page <SELECT 
+                  class=smalltext size=1 name=perpage><OPTION 
+                    value=10>10</OPTION> <OPTION value=25 selected>25</OPTION> 
+                    <OPTION value=50>50</OPTION></SELECT></TD>
+                <TD colSpan=2>&nbsp;</TD></TR></TBODY></TABLE></TD></TR></FORM>
+        <TR bgColor=#fbedbb>
+          <TD><A name=xx0xx></A>
+            <TABLE cellPadding=2 width="100%" bgColor=#fbedbb border=0>
+              <TBODY>
+              <TR>
+                <TD class=messagetitle><IMG height=16 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/forum_newmsg.gif" 
+                  width=16 align=top border=0><A class=HoverLink 
+                  title="Add a new message to the discussions" 
+                  href="http://www.codeproject.com/script/comments/user_new.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045" 
+                  target=_top name=HoverNL><B>New Message</B></A></TD>
+                <TD class=messagetitle>Msgs 1 to 25 of 397 (Total: 397) (<A 
+                  href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045">Refresh</A>)</TD>
+                <TD noWrap align=right><FONT class=messagetitle><SPAN 
+                  class=HoverLink>First</SPAN> <SPAN class=HoverLink>Prev</SPAN> 
+                  <A class=HoverLink 
+                  href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;fr=26" 
+                  name=HoverNL>Next</A> <SPAN 
+                  class=HoverLink>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN> 
+              </FONT></TD></TR></TBODY></TABLE></TD></TR>
+        <TR bgColor=white>
+          <TD>
+            <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+              <TBODY>
+              <TR>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=2 bgColor=#fbedbb border=0>
+                    <TBODY>
+                    <TR>
+                      <TD class=messagetitle width="100%">Subject&nbsp;</TD>
+                      <TD class=messagetitle noWrap width=140>Author&nbsp;</TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT 
+                    class=messagetitle>Date&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=5 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR id=1455746_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1455746xx></A><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1455746#xx1455746xx" 
+                        name=1455746><B>Analyzing two images jpeg or 
+                      bmp</B></A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=713907"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT 
+                        class=messagetitle><B>floydus27</B>&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle><B>14:09 19 Apr 
+                        '06</B>&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1455746_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>Can I 
+                                ask you a sample small project that would do the 
+                                same but only with two files(jpg or bmp).<BR>I'm 
+                                totally new to Visual c#, and that whole thing 
+                                is complicated for me.<BR>I don't even know 
+                                where you're analazing the image(file in the 
+                                project).<BR>By the way, I have downloaded 
+                                visual C# Express 2005 and was able to compile, 
+                                view your program, thanks. <BR><BR>I'm sorry if 
+                                my question is not relevant to this article, 
+                                being a newbie. <IMG 
+                                src="Motion Detection Algorithms - The Code Project - Multimedia.files/smiley_smile.gif" 
+                                align=absMiddle><BR><BR><BR><BR>Dave<BR><BR>-- 
+                                modified at 14:10 Wednesday 19th April, 
+                                2006<BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1455746">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1455746">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1455746&amp;forumid=177045&amp;select=1455746#xx1455746xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1455746#xx1455746xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(713907,1455746);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=6 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR id=1459039_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1459039xx></A><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=18><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1459039#xx1459039xx" 
+                        name=1459039>Re: Analyzing two images jpeg or bmp</A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=1181072"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT class=messagetitle>Andrew 
+                        Kirillov&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle>18hrs 26mins 
+                        ago&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1459039_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=18><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT 
+                                class=messagecontent>Hello<BR><BR>How do you 
+                                imagine to do the <B>same</B>, but with two 
+                                images only ? <IMG 
+                                src="Motion Detection Algorithms - The Code Project - Multimedia.files/smiley_confused.gif" 
+                                align=absMiddle> Actually the application does 
+                                motion detection in video stream. Do you have a 
+                                lot of motion in your images ? <IMG 
+                                src="Motion Detection Algorithms - The Code Project - Multimedia.files/smiley_OMG.gif" 
+                                align=absMiddle><BR><BR><BR>With best 
+                                regards,<BR>Andrew Kirillov, MCP x 3<BR><A 
+                                href="http://www.codeproject.com/csharp/Neural_Network_OCR.asp">Prize 
+                                winner, August 
+                                2005</A><BR><BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1459039">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1459039">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1455746&amp;forumid=177045&amp;select=1459039#xx1459039xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1459039#xx1459039xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(1181072,1459039);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=5 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR height=1>
+                <TD bgColor=#ff9900><IMG height=1 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1></TD></TR>
+              <TR id=1453894_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1453894xx></A><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1453894#xx1453894xx" 
+                        name=1453894><B>Webform support?</B></A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=497066"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT 
+                        class=messagetitle><B>beckerben</B>&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle><B>15:05 18 Apr 
+                        '06</B>&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1453894_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>I am 
+                                wondering if this method of displaying webcams 
+                                can be used in a webform? I'm interested in 
+                                taking a webcam that uses MJPEG as it's method 
+                                of cam display and putting this real time feed 
+                                on a webform. Any recommended ways of doing 
+                                this? <BR><BR>I love the idea of motion 
+                                detection and am intrigued and amazed at what 
+                                you've done here. 
+                                <BR><BR>Becker<BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1453894">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1453894">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1453894&amp;forumid=177045&amp;select=1453894#xx1453894xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1453894#xx1453894xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(497066,1453894);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=6 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR id=1454458_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1454458xx></A><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=18><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1454458#xx1454458xx" 
+                        name=1454458>Re: Webform support?</A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=1181072"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT class=messagetitle>Andrew 
+                        Kirillov&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle>1:29 19 Apr 
+                        '06&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1454458_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=18><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT 
+                                class=messagecontent>Hello<BR><BR>One way to 
+                                display MJPEG on your web page is to use ActiveX 
+                                control. The approach is use by many IP cameras 
+                                manufacturers. For example, <A 
+                                href="http://www.axis.com/" 
+                                rel=nofollow>Axis</A>[<A title="New Window" 
+                                href="http://www.axis.com/" target=_blank 
+                                rel=nofollow>^</A>] has good support portal and 
+                                you can find there code samples to place on your 
+                                page for camera displaying.<BR><BR><BR><BR>With 
+                                best regards,<BR>Andrew Kirillov, MCP x 3<BR><A 
+                                href="http://www.codeproject.com/csharp/Neural_Network_OCR.asp">Prize 
+                                winner, August 
+                                2005</A><BR><BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1454458">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1454458">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1453894&amp;forumid=177045&amp;select=1454458#xx1454458xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1454458#xx1454458xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(1181072,1454458);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=5 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR height=1>
+                <TD bgColor=#ff9900><IMG height=1 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1></TD></TR>
+              <TR id=1452940_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1452940xx></A><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1452940#xx1452940xx" 
+                        name=1452940><B>Measure the speed of moving 
+                        blobs.</B></A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=106383"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT 
+                        class=messagetitle><B>tonymudd</B>&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle><B>4:24 18 Apr 
+                        '06</B>&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1452940_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT 
+                                class=messagecontent>Hi,<BR>I modified one of 
+                                your earlier projects to calculate the speed of 
+                                cars moving across the field of view - now 
+                                (since the updates you've done look worth using) 
+                                I'll have to do it again!<BR>It was a bit 
+                                rough-and-ready, it just remembered the 
+                                left-most edge of any objects it found and 
+                                checked to see how much it moved between frames. 
+                                I then applied a rolling average over the last 5 
+                                frames and a "peak hold".<BR>Enough to prove the 
+                                cars up my residential road do up to 75 mph (the 
+                                limit is 30 mph).<BR>Thanks - great 
+                                article,<BR>Tony. <BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1452940">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1452940">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1452940&amp;forumid=177045&amp;select=1452940#xx1452940xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1452940#xx1452940xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(106383,1452940);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=6 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR id=1454460_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1454460xx></A><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=18><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1454460#xx1454460xx" 
+                        name=1454460>Re: Measure the speed of moving 
+                      blobs.</A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=1181072"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT class=messagetitle>Andrew 
+                        Kirillov&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle>1:32 19 Apr 
+                        '06&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1454460_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=18><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT 
+                                class=messagecontent>Hello<BR><BR>Thank you for 
+                                your comments about the article. I am sorry you 
+                                need to do the job twice, but .. <IMG 
+                                src="Motion Detection Algorithms - The Code Project - Multimedia.files/smiley_redface.gif" 
+                                align=absMiddle><BR><BR>It is very interesting, 
+                                that you implemented basic object tracking 
+                                functionality. And it could be interesting for 
+                                the community, if you could share your 
+                                ideas.<BR><BR><BR>With best regards,<BR>Andrew 
+                                Kirillov, MCP x 3<BR><A 
+                                href="http://www.codeproject.com/csharp/Neural_Network_OCR.asp">Prize 
+                                winner, August 
+                                2005</A><BR><BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1454460">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1454460">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1452940&amp;forumid=177045&amp;select=1454460#xx1454460xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1454460#xx1454460xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(1181072,1454460);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=5 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR height=1>
+                <TD bgColor=#ff9900><IMG height=1 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1></TD></TR>
+              <TR id=1447565_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1447565xx></A><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1447565#xx1447565xx" 
+                        name=1447565><B>DAS IST FANTASTISCH!</B></A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=5937"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT class=messagetitle><B>Egipko 
+                        Nikolay</B>&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle><B>17:57 12 Apr 
+                        '06</B>&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1447565_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>Very 
+                                cool! Thanks for nice 
+                                article!<BR><BR><BR>Nikolaz,<BR><B><A 
+                                href="http://www.visual-comparer.com/" 
+                                target=_blank>http://www.visual-comparer.com/</A></B> 
+                                - file compare and merge 
+                                tool<BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1447565">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1447565">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1447565&amp;forumid=177045&amp;select=1447565#xx1447565xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1447565#xx1447565xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(5937,1447565);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=5 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR height=1>
+                <TD bgColor=#ff9900><IMG height=1 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1></TD></TR>
+              <TR id=1446463_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1446463xx></A><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1446463#xx1446463xx" 
+                        name=1446463><B>i wish i could vote more than 1 
+                        vote</B></A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=750345"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT class=messagetitle><B>Unruled 
+                        Boy</B>&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle><B>6:14 12 Apr 
+                        '06</B>&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1446463_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>hey, 
+                                excellent update!<IMG 
+                                src="Motion Detection Algorithms - The Code Project - Multimedia.files/smiley_laugh.gif" 
+                                align=absMiddle> 
+                                <BR><BR>Regards,<BR>unruledboy@hotmail.com<BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1446463">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1446463">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1446463&amp;forumid=177045&amp;select=1446463#xx1446463xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1446463#xx1446463xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(750345,1446463);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=5 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR height=1>
+                <TD bgColor=#ff9900><IMG height=1 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1></TD></TR>
+              <TR id=1442371_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1442371xx></A><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1442371#xx1442371xx" 
+                        name=1442371><B>Could not work with .NET 2005</B></A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=2020262"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT 
+                        class=messagetitle><B>Zhangjinsong</B>&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle><B>3:56 9 Apr 
+                        '06</B>&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1442371_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>I 
+                                upgrade the project to the .NET 2005.<BR>But 
+                                after compiled, the programme could not 
+                                run.<BR>Showing the message: "Application has 
+                                generated an exception that could not be 
+                                handled. Process id=0xcc4(3268),Thread 
+                                id=0x83c(2108)".<BR><BR>Help me,how to resovle 
+                                this problem?<BR><BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1442371">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1442371">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1442371&amp;forumid=177045&amp;select=1442371#xx1442371xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1442371#xx1442371xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>Score: 2.0 (1 
+                                vote).
+                                <SCRIPT language=Javascript>MsgVoteForm(2020262,1442371);</SCRIPT>
+                                 
+                    </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=6 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR id=1442405_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1442405xx></A><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=18><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_answer.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1442405#xx1442405xx" 
+                        name=1442405>Re: Could not work with .NET 2005</A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=1181072"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT class=messagetitle>Andrew 
+                        Kirillov&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle>5:31 9 Apr 
+                        '06&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1442405_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=18><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT 
+                                class=messagecontent>Hello<BR><BR>Personally I 
+                                have never tried to compile and run the 
+                                application on .NET 2.0. Does this message 
+                                appear immediately after application start 
+                                ?<BR><BR>You can try to look at another article, 
+                                which uses my application as a base and .NET 2. 
+                                <A 
+                                href="http://msdn.microsoft.com/coding4fun/someassemblyrequired/babies/" 
+                                rel=nofollow>Here</A>[<A title="New Window" 
+                                href="http://msdn.microsoft.com/coding4fun/someassemblyrequired/babies/" 
+                                target=_blank rel=nofollow>^</A>] it 
+                                is.<BR><BR><BR>With best regards,<BR>Andrew 
+                                Kirillov, MCP x 3<BR><A 
+                                href="http://www.codeproject.com/csharp/Neural_Network_OCR.asp">Prize 
+                                winner, August 
+                                2005</A><BR><BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1442405">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1442405">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1442371&amp;forumid=177045&amp;select=1442405#xx1442405xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1442405#xx1442405xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(1181072,1442405);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=6 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR id=1442406_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1442406xx></A><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=36><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1442406#xx1442406xx" 
+                        name=1442406>Re: Could not work with .NET 2005</A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=2020262"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT 
+                        class=messagetitle>Zhangjinsong&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle>5:38 9 Apr 
+                        '06&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1442406_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=36><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>Thx a 
+                                lot <IMG 
+                                src="Motion Detection Algorithms - The Code Project - Multimedia.files/smiley_biggrin.gif" 
+                                align=absMiddle> <BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1442406">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1442406">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1442371&amp;forumid=177045&amp;select=1442406#xx1442406xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1442406#xx1442406xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(2020262,1442406);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=5 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR height=1>
+                <TD bgColor=#ff9900><IMG height=1 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1></TD></TR>
+              <TR id=1441931_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1441931xx></A><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_info.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1441931#xx1441931xx" 
+                        name=1441931><B>Article Update</B></A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=1181072"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT class=messagetitle><B>Andrew 
+                        Kirillov</B>&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle><B>7:50 8 Apr 
+                        '06</B>&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1441931_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT 
+                                class=messagecontent>Hello,<BR><BR>Because of 
+                                too many question about motion alarm and video 
+                                saving, I decided to clarify these questions a 
+                                little bit in the article. I just have sent to 
+                                CodeProject the article update, which contains 
+                                updated sources and demo application with motion 
+                                alarm and video saving capabilities. So, let's 
+                                be patient and wait a little bit for the 
+                                update.<BR><BR>Thank you<BR><BR><BR>With best 
+                                regards,<BR>Andrew Kirillov, MCP x 3<BR><A 
+                                href="http://www.codeproject.com/csharp/Neural_Network_OCR.asp">Prize 
+                                winner, August 
+                                2005</A><BR><BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1441931">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1441931">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1441931&amp;forumid=177045&amp;select=1441931#xx1441931xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1441931#xx1441931xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(1181072,1441931);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=5 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR height=1>
+                <TD bgColor=#ff9900><IMG height=1 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1></TD></TR>
+              <TR id=1436156_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1436156xx></A><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1436156#xx1436156xx" 
+                        name=1436156><B>flikering</B></A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=1646018"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT 
+                        class=messagetitle><B>zooooooz</B>&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle><B>12:51 4 Apr 
+                        '06</B>&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1436156_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT 
+                                class=messagecontent>hello,<BR>at first i would 
+                                like to thank you for this great 
+                                article.....<BR><BR>i had a flikering problem 
+                                when i'm using this project with an ip camera 
+                                and set any motion detector.<BR>any 
+                                idea??<BR><BR>thanks 
+                                <BR><BR>ziad<BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1436156">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1436156">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1436156&amp;forumid=177045&amp;select=1436156#xx1436156xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1436156#xx1436156xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(1646018,1436156);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=6 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR id=1436487_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1436487xx></A><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=18><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1436487#xx1436487xx" 
+                        name=1436487>Re: flikering</A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=1181072"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT class=messagetitle>Andrew 
+                        Kirillov&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle>16:30 4 Apr 
+                        '06&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1436487_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=18><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT 
+                                class=messagecontent>Hello<BR><BR>Really 
+                                strange. I have no any flickering with different 
+                                IP cameras and AVI files also. Could you provide 
+                                more description of your problem 
+                                ?<BR><BR><BR><BR>With best regards,<BR>Andrew 
+                                Kirillov, MCP x 3<BR><A 
+                                href="http://www.codeproject.com/csharp/Neural_Network_OCR.asp">Prize 
+                                winner, August 
+                                2005</A><BR><BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1436487">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1436487">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1436156&amp;forumid=177045&amp;select=1436487#xx1436487xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1436487#xx1436487xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(1181072,1436487);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=6 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR id=1437501_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1437501xx></A><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=36><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1437501#xx1437501xx" 
+                        name=1437501>Re: flikering</A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=1646018"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT 
+                        class=messagetitle>zooooooz&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle>11:26 5 Apr 
+                        '06&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1437501_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=36><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>hello 
+                                again,,,,<BR>i've noticed that the problem 
+                                happens when i set any motion detector and 
+                                there's no motion in the picture, if you tried 
+                                to make the size of the rectangules you draw 
+                                bigger i think you'll see the problem, for 
+                                example :<BR><BR>// if ((n &lt; 10) &amp;&amp; 
+                                (rc.Width &gt; 30) &amp;&amp; (rc.Height &gt; 
+                                45))<BR><BR>if there is not any rectangule to 
+                                draw, the flikering happens, so when you make 
+                                the "Graphics g" like below,and there's nothing 
+                                to draw on it, there's a 
+                                problem.<BR><BR>Graphics g = 
+                                Graphics.FromImage(image);<BR><BR>so as a try, i 
+                                just drawed a small line on it and there no 
+                                flikering 
+                                anymore<BR><BR>g.DrawLine(pen1,0,0,1,1);<BR><BR>i'll 
+                                try to find out what else to do, maybe not 
+                                defineig the Graphics anless there's somthing to 
+                                draw on it,<BR>thanks for replaying<BR>bye 
+                                <BR><BR>ziad<BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1437501">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1437501">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1436156&amp;forumid=177045&amp;select=1437501#xx1437501xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1437501#xx1437501xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(1646018,1437501);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=6 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR id=1441895_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1441895xx></A><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=54><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1441895#xx1441895xx" 
+                        name=1441895>Re: flikering</A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=1209418"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT 
+                        class=messagetitle>bigmimmo&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle>6:28 8 Apr 
+                        '06&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1441895_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=54><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>I have 
+                                the same problem, so you think that its caused 
+                                by the lack of movement? I noticed that too. If 
+                                you solve the problem please email me with the 
+                                solution thanks! <BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1441895">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1441895">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1436156&amp;forumid=177045&amp;select=1441895#xx1441895xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1441895#xx1441895xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(1209418,1441895);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=6 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR id=1441983_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1441983xx></A><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=72><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1441983#xx1441983xx" 
+                        name=1441983>Re: flikering</A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=1646018"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT 
+                        class=messagetitle>zooooooz&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle>10:16 8 Apr 
+                        '06&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1441983_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=72><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT 
+                                class=messagecontent>hello<BR>just try this, in 
+                                the motion detector<BR>after:<BR><BR>Graphics g 
+                                = Graphics.FromImage(image);<BR><BR>just 
+                                put<BR><BR>Pen pen1 = new Pen(Color.Transparent, 
+                                1);<BR>g.DrawLine(pen1,0,0,1,1);<BR><BR>try it, 
+                                bye<BR><BR>ziad 
+                                <BR><BR>ziad<BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1441983">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1441983">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1436156&amp;forumid=177045&amp;select=1441983#xx1441983xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1441983#xx1441983xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(1646018,1441983);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=6 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR id=1441984_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1441984xx></A><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=90><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1441984#xx1441984xx" 
+                        name=1441984>Re: flikering</A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=1181072"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT class=messagetitle>Andrew 
+                        Kirillov&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle>10:20 8 Apr 
+                        '06&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1441984_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=90><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>Or you 
+                                can wait for the article update - there is no 
+                                <CODE>Graphics</CODE> creation in the case if 
+                                nothing to draw.<BR><BR><BR><BR>With best 
+                                regards,<BR>Andrew Kirillov, MCP x 3<BR><A 
+                                href="http://www.codeproject.com/csharp/Neural_Network_OCR.asp">Prize 
+                                winner, August 
+                                2005</A><BR><BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1441984">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1441984">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1436156&amp;forumid=177045&amp;select=1441984#xx1441984xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1441984#xx1441984xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(1181072,1441984);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=5 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR height=1>
+                <TD bgColor=#ff9900><IMG height=1 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1></TD></TR>
+              <TR id=1432170_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1432170xx></A><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1432170#xx1432170xx" 
+                        name=1432170><B>Show a warning, help me!</B></A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=1843858"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT 
+                        class=messagetitle><B>hanhnd</B>&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle><B>1:50 1 Apr 
+                        '06</B>&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1432170_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>Hi, I 
+                                want to show a warning such as : a message box 
+                                or sound when your program detects a moving 
+                                object. <BR><BR>I'm from Viet 
+                                Nam<BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1432170">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1432170">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1432170&amp;forumid=177045&amp;select=1432170#xx1432170xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1432170#xx1432170xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(1843858,1432170);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=6 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR id=1432244_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1432244xx></A><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=18><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1432244#xx1432244xx" 
+                        name=1432244>Re: Show a warning, help me!</A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=1181072"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT class=messagetitle>Andrew 
+                        Kirillov&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle>4:22 1 Apr 
+                        '06&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1432244_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=18><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT 
+                                class=messagecontent>Hello<BR><BR>Do you really 
+                                want it ? Ok, you can do it. <IMG 
+                                src="Motion Detection Algorithms - The Code Project - Multimedia.files/smiley_confused.gif" 
+                                align=absMiddle><BR>The topic of alarm on motion 
+                                detection was discussed a lot here.<BR>Soon I 
+                                will publish an update to the article, which 
+                                contain this code.<BR><BR><BR>With best 
+                                regards,<BR>Andrew Kirillov, MCP x 3<BR><A 
+                                href="http://www.codeproject.com/csharp/Neural_Network_OCR.asp">Prize 
+                                winner, August 
+                                2005</A><BR><BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1432244">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1432244">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1432170&amp;forumid=177045&amp;select=1432244#xx1432244xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1432244#xx1432244xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(1181072,1432244);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=6 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR id=1435187_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1435187xx></A><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=36><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1435187#xx1435187xx" 
+                        name=1435187>Re: Show a warning, help me!</A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=1843858"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT 
+                        class=messagetitle>hanhnd&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle>3:58 4 Apr 
+                        '06&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1435187_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=36><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>thanks 
+                                for reply! Could you tell me some ideas or code 
+                                for this problem ? <BR><BR>Nguyen Duc 
+                                Hanh<BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1435187">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1435187">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1432170&amp;forumid=177045&amp;select=1435187#xx1435187xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1435187#xx1435187xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(1843858,1435187);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=5 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR height=1>
+                <TD bgColor=#ff9900><IMG height=1 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1></TD></TR>
+              <TR id=1427518_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1427518xx></A><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1427518#xx1427518xx" 
+                        name=1427518><B>"DIB " codec</B></A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=1209418"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT 
+                        class=messagetitle><B>bigmimmo</B>&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle><B>7:38 29 Mar 
+                        '06</B>&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1427518_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>Wanted 
+                                to try a diffrent codec could you explain the 
+                                meaning of the 
+                                comment:<BR><BR>**************<BR>Note: I am 
+                                stucked with non even frame width. AVIs with non 
+                                even<BR>/// width are playing well in WMP, but 
+                                not in BSPlayer (it's for "DIB " codec).<BR>/// 
+                                Some other codecs does not work with non even 
+                                width or height at 
+                                all.<BR><BR>**************<BR><BR>the codec 
+                                dialog does come up but notice that it uses the 
+                                DIB string hardcoded in the AVIWriter class, do 
+                                I have to pass a bitmap of a certain size? (h, 
+                                w) ? 
+                                <BR><BR>Thanks<BR><BR><BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1427518">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1427518">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1427518&amp;forumid=177045&amp;select=1427518#xx1427518xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1427518#xx1427518xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(1209418,1427518);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=6 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR id=1427578_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1427578xx></A><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=18><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1427578#xx1427578xx" 
+                        name=1427578>Re: "DIB " codec</A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=1181072"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT class=messagetitle>Andrew 
+                        Kirillov&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle>8:20 29 Mar 
+                        '06&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1427578_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=18><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT 
+                                class=messagecontent>Hello<BR><BR>The comment is 
+                                just some of my experience playing with 
+                                different codecs. If you want to skip codec 
+                                selection dialog you need to comment 
+                                <CODE>Win32.AVISaveOptions(stream, ref opts, 
+                                IntPtr.Zero);</CODE> in 
+                                <CODE>AVIWrite.Open()</CODE>.<BR><BR><A 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1398520&amp;searchkw=tiger.video.vfw&amp;sd=12%2F28%2F2005&amp;ed=3%2F28%2F2006#xx1398520xx" 
+                                rel=nofollow>Look at another discussion to get 
+                                more information</A>[<A title="New Window" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1398520&amp;searchkw=tiger.video.vfw&amp;sd=12%2F28%2F2005&amp;ed=3%2F28%2F2006#xx1398520xx" 
+                                target=_blank 
+                                rel=nofollow>^</A>]<BR><BR><BR>With best 
+                                regards,<BR>Andrew Kirillov, MCP x 3<BR><A 
+                                href="http://www.codeproject.com/csharp/Neural_Network_OCR.asp">Prize 
+                                winner, August 
+                                2005</A><BR><BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1427578">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1427578">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1427518&amp;forumid=177045&amp;select=1427578#xx1427578xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1427578#xx1427578xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(1181072,1427578);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=6 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR id=1427612_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1427612xx></A><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=36><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1427612#xx1427612xx" 
+                        name=1427612>Re: "DIB " codec</A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=1209418"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT 
+                        class=messagetitle>bigmimmo&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle>8:40 29 Mar 
+                        '06&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1427612_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG height=1 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/ind.gif" 
+                        width=36><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>Yes I 
+                                did that already, to use diffrent codecs to 
+                                encode do I use the the FOURCC values for DIB 
+                                compression of different compressors like : CVID 
+                                Supermac - Cinepak as 
+                                example...<BR><BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1427612">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1427612">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1427518&amp;forumid=177045&amp;select=1427612#xx1427612xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1427612#xx1427612xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(1209418,1427612);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=5 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR>
+              <TR height=1>
+                <TD bgColor=#ff9900><IMG height=1 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1></TD></TR>
+              <TR id=1427460_h0 bgColor=#fef9e7>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=white><A name=xx1427460xx></A><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD class=messagetitle width="100%"><A 
+                        class=messagetitle id=DynMessLink 
+                        href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;select=1427460#xx1427460xx" 
+                        name=1427460><B>not working</B></A></TD>
+                      <TD vAlign=bottom><A 
+                        href="http://www.codeproject.com/script/profile/whos_who.asp?id=2803674"><IMG 
+                        title="Click for User Profile" height=15 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/userinfo.gif" 
+                        width=14 border=0></A>&nbsp;</TD>
+                      <TD noWrap width=140><FONT 
+                        class=messagetitle><B>kartheek 
+                      nagasuri</B>&nbsp;</FONT></TD>
+                      <TD style="WIDTH: 9em" noWrap align=right 
+                        width=120><FONT class=messagetitle><B>6:54 29 Mar 
+                        '06</B>&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+              <TR id=1427460_h1 style="DISPLAY: none">
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG 
+                        src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_blank.gif" 
+                        align=absMiddle>&nbsp;</TD>
+                      <TD width="100%" bgColor=#d5eaff>
+                        <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD>
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>I 
+                                opened .avi file which is in my hard disk. But 
+                                not working properly. It displays 
+                                'Connecting...' only. Moving between 
+                                timer_Elapsed event but not give the result. 
+                                Please help me.<BR>Thanks. 
+                                <BR><BR><BR><BR>Kartheek<BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1427460">Reply</A>][<A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cs/media/Motion_Detection.asp&amp;df=100&amp;forumid=177045&amp;select=1427460">Email</A>][<A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;tid=1427460&amp;forumid=177045&amp;select=1427460#xx1427460xx">View 
+                                Thread</A>][<A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/cs/media/Motion_Detection.asp?msg=1427460#xx1427460xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>Score: 2.0 (1 
+                                vote).
+                                <SCRIPT language=Javascript>MsgVoteForm(2803674,1427460);</SCRIPT>
+                                 
+                    </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG height=5 
+                  src="Motion Detection Algorithms - The Code Project - Multimedia.files/t.gif" 
+                  width=1 border=0></TD></TR></TBODY></TABLE></TD></TR>
+        <TR bgColor=#fbedbb>
+          <TD>
+            <TABLE cellPadding=2 width="100%">
+              <TBODY>
+              <TR>
+                <TD class=messagetitle>Last Visit: 3:23 Sunday 23rd April, 
+                2006</TD>
+                <TD noWrap align=right><FONT class=messagetitle><SPAN 
+                  class=HoverLink>First</SPAN> <SPAN class=HoverLink>Prev</SPAN> 
+                  <A class=HoverLink 
+                  href="http://www.codeproject.com/cs/media/Motion_Detection.asp?df=100&amp;forumid=177045&amp;fr=26" 
+                  name=HoverNL>Next</A> <SPAN 
+                  class=HoverLink>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN> 
+              </FONT></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<P class=smallText><IMG 
+src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_general.gif" 
+align=absMiddle> General comment &nbsp;&nbsp; <IMG 
+src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_info.gif" 
+align=absMiddle> News / Info &nbsp;&nbsp; <IMG 
+src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_question.gif" 
+align=absMiddle> Question &nbsp;&nbsp; <IMG 
+src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_answer.gif" 
+align=absMiddle> Answer &nbsp;&nbsp; <IMG 
+src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_game.gif" 
+align=absMiddle> Joke / Game &nbsp;&nbsp; <IMG 
+src="Motion Detection Algorithms - The Code Project - Multimedia.files/news_sticky.gif" 
+align=absMiddle> Admin message</P><BR>
+<TABLE cellSpacing=5 width="100%">
+  <TBODY>
+  <TR vAlign=top>
+    <TD><FONT style="FONT-SIZE: 7pt" size=1><A 
+      href="http://www.codeproject.com/?cat=1">All Topics</A>, <A 
+      href="http://www.codeproject.com/?cat=3">C#</A>, <A 
+      href="http://www.codeproject.com/?cat=5">.NET</A> &gt;&gt; <A 
+      href="http://www.codeproject.com/cs/media/">Multimedia</A> &gt;&gt; <A 
+      href="http://www.codeproject.com/cs/media/#General">General</A> 
+      <BR>Updated: 11 Apr 2006 7:36 </FONT></TD>
+    <TD align=right><FONT style="FONT-SIZE: 7pt" size=1>Article content 
+      copyright Andrew Kirillov, 2005<BR>everything else Copyright © <A 
+      href="mailto:webmaster@codeproject.com">CodeProject</A>, 1999-2006</A>. 
+      <BR>Web03 | <A href="http://www.codeproject.com/info/MediaKit">Advertise 
+      on The Code Project</A> | <A 
+      href="http://www.codeproject.com/info/privacy.asp">Privacy</A> 
+  </FONT></TD></TR></TBODY></TABLE><BR>
+<CENTER>
+<TABLE cellSpacing=0 cellPadding=0 width="95%" border=0>
+  <TBODY>
+  <TR>
+    <TD bgColor=#ff9900 height=1><IMG height=1 
+      src="Motion Detection Algorithms - The Code Project - Multimedia.files/space.gif"></TD></TR>
+  <TR>
+    <TD align=middle><FONT size=1><A 
+      href="http://www.theultimatetoolbox.com/">The Ultimate Toolbox</A> &#8226; <A 
+      href="http://www.aspalliance.com/">ASP Alliance</A> &#8226; <A 
+      href="http://www.developerfusion.co.uk/">Developer Fusion</A> &#8226; <A 
+      href="http://www.developersdex.com/">Developersdex</A> &#8226; <A 
+      href="http://www.devguru.com/">DevGuru</A> &#8226; <A 
+      href="http://www.programmersheaven.com/">Programmers Heaven</A> &#8226; <A 
+      href="http://www.planet-source-code.com/">Planet Source Code</A> &#8226; <A 
+      href="http://www.tek-tips.com/">Tek-Tips Forums</A> &#8226; 
+</FONT></TD></TR></TBODY></TABLE></CENTER></BODY></HTML>

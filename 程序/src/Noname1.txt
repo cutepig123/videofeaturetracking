@@ -1,0 +1,114 @@
+接口的实现和调用
+
+1。实现接口，首先声明接口
+//------------------------------------------------------------------------------
+// File: IEZ.h
+//
+// Desc: DirectShow sample code - custom interface to allow the user to
+//       perform image special effects.
+//
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+//------------------------------------------------------------------------------
+
+
+#ifndef __IEZ__
+#define __IEZ__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+    // { fd5010a3-8ebe-11ce-8183-00aa00577da1 }
+    DEFINE_GUID(IID_IIPEffect,
+    0xfd5010a3, 0x8ebe, 0x11ce, 0x81, 0x83, 0x00, 0xaa, 0x00, 0x57, 0x7d, 0xa1);
+
+    DECLARE_INTERFACE_(IIPEffect, IUnknown)
+    {
+        STDMETHOD(get_IPEffect) (THIS_
+                    int *effectNum,         // The current effect
+                    REFTIME *StartTime,     // Start time of effect
+                    REFTIME *Length         // length of effect
+                 ) PURE;
+
+        STDMETHOD(put_IPEffect) (THIS_
+                    int effectNum,          // Change to this effect
+                    REFTIME StartTime,      // Start time of effect
+                    REFTIME Length          // Length of effect
+                 ) PURE;
+    };
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif // __IEZ__
+
+其次在类中实现接口
+class CEZrgb24 : 
+         public IIPEffect,
+         。。。。
+{
+
+public:
+
+    DECLARE_IUNKNOWN;
+    .....................
+
+    STDMETHODIMP put_IPEffect(int IPEffect, REFTIME StartTime, REFTIME Length);
+    。。。。。。。。。。。	
+    
+}; // EZrgb24
+
+STDMETHODIMP CEZrgb24::put_IPEffect(int IPEffect,REFTIME start,REFTIME length)
+{
+    CAutoLock cAutolock(&m_EZrgb24Lock);
+
+    m_effect = IPEffect;
+    m_effectStartTime = COARefTime(start);
+    m_effectTime = COARefTime(length);
+
+    SetDirty(TRUE);
+    return NOERROR;
+
+} // put_IPEffect
+
+
+2.使用接口
+定义接口变量
+IIPEffect *m_pIPEffect;
+
+实现相应的调用接口代码
+
+HRESULT CEZrgb24Properties::OnConnect(IUnknown *pUnknown)
+{
+    CheckPointer(pUnknown,E_POINTER);
+    ASSERT(m_pIPEffect == NULL);
+
+    HRESULT hr = pUnknown->QueryInterface(IID_IIPEffect, (void **) &m_pIPEffect);
+    if (FAILED(hr)) {
+        return E_NOINTERFACE;
+    }
+
+    // Get the initial image FX property
+    CheckPointer(m_pIPEffect,E_FAIL);
+    m_pIPEffect->get_IPEffect(&m_effect, &m_start, &m_length);
+   // m_pIPEffect->put_IPEffect(m_effect, m_start, m_length);	
+    m_bIsInitialized = FALSE ;
+    return NOERROR;
+
+} // OnConnect
+
+HRESULT CEZrgb24Properties::OnDisconnect()
+{
+    // Release of Interface after setting the appropriate old effect value
+    if(m_pIPEffect)
+    {
+        m_pIPEffect->Release();
+        m_pIPEffect = NULL;
+    }
+    return NOERROR;
+
+} // OnDisconnect
+
+
+   

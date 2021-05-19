@@ -1,0 +1,325 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\DShowTest.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.chs\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\DShowTest.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 301, 112
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 DShowTest"
+FONT 9, "宋体"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,21,21
+    LTEXT           "DShowTest 1.0 版",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "视频播放软件，使用前需要先注册那个filter\r\n还有点毛病,比如播放时不能自动刷新屏幕",
+                    IDC_STATIC,40,25,231,74
+    DEFPUSHBUTTON   "确定",IDOK,244,7,50,14,WS_GROUP
+END
+
+IDD_DSHOWTEST_DIALOG DIALOGEX 0, 0, 362, 223
+STYLE WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
+    WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "DShowTest"
+MENU IDR_MENU1
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDM_PIC,"Static",SS_BLACKFRAME,308,216,47,0
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "DShowTest Microsoft 基础类应用程序\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "DShowTest\0"
+            VALUE "LegalCopyright", "版权所有 (C) 2006\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "DShowTest.EXE\0"
+            VALUE "ProductName", "DShowTest 应用程序\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 294
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 105
+    END
+
+    IDD_DSHOWTEST_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 355
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 216
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU DISCARDABLE 
+BEGIN
+    POPUP "File"
+    BEGIN
+        MENUITEM "CapturePreview",              IDM_CapturePreview
+        MENUITEM SEPARATOR
+        MENUITEM "Test""RGB24""",               IDC_TestOurFilter
+        MENUITEM "Stop",                        IDM_STOP
+        MENUITEM "Run/Pause",                   IDM_RUN
+        MENUITEM SEPARATOR
+        MENUITEM "IDC_TRACKING_PREV_ASBKGND",   IDC_TRACKING_PREV_ASBKGND
+        MENUITEM "IDC_TRACKING_FIRST_ASBKGND",  IDC_TRACKING_FIRST_ASBKGND
+        MENUITEM "IDC_TRACKING_DYNAMIC_BKGND",  IDC_TRACKING_DYNAMIC_BKGND
+        MENUITEM SEPARATOR
+        MENUITEM "IDC_LIGHT_RECTANGLE",         IDC_LIGHT_RECTANGLE
+        MENUITEM "IDC_LIGHT_IMPROVED",          IDC_LIGHT_IMPROVED
+        MENUITEM "IDC_LIGHT_RECTANGLE2",        IDC_LIGHT_RECTANGLE2
+        MENUITEM SEPARATOR
+        MENUITEM "IDC_EMBOSS",                  IDC_EMBOSS
+        MENUITEM "IDC_GREY",                    IDC_GREY
+        MENUITEM "IDC_BLUR",                    IDC_BLUR
+        MENUITEM "IDC_POSTERIZE",               IDC_POSTERIZE
+        MENUITEM "IDC_XOR",                     IDC_XOR
+        MENUITEM "IDC_DARKEN",                  IDC_DARKEN
+        MENUITEM "IDC_BLUE",                    IDC_BLUE
+        MENUITEM "IDC_GREEN",                   IDC_GREEN
+        MENUITEM "IDC_RED",                     IDC_RED
+        MENUITEM "IDC_NONE",                    IDM_NONE
+        MENUITEM SEPARATOR
+        MENUITEM "IDM_TEST_INTERFACE",          IDM_TEST_INTERFACE
+    END
+    POPUP "Test"
+    BEGIN
+        MENUITEM "SaveAsGrf",                   IDC_SAVE_GIF
+        MENUITEM "Test""Ball""",                IDC_TESTBALL
+        MENUITEM SEPARATOR
+        MENUITEM "PlayVideo",                   IDC_PLAYVIDEO
+        MENUITEM "PlayFile",                    IDM_PLAYFILE, GRAYED
+        MENUITEM "ListTest",                    IDM_Test, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "ListAllFilters",              IDC_LISTFILTERS
+        MENUITEM "SnapImage",                   IDC_SNAPPIC
+        MENUITEM "CurrFilters",                 IDC_LISTFILTERBYGRAPH
+        MENUITEM SEPARATOR
+        MENUITEM "Pause",                       IDM_PAUSE
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_TOOLBAR1 TOOLBAR DISCARDABLE  16, 15
+BEGIN
+    BUTTON      ID_BUTTON32771
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_TOOLBAR1            BITMAP  DISCARDABLE     "res\\toolbar1.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "关于 DShowTest(&A)..."
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DISPINFO DIALOG DISCARDABLE  0, 0, 304, 201
+STYLE DS_MODALFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | 
+    WS_CAPTION | WS_SYSMENU
+CAPTION "Property Page"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_EDIT1,7,7,290,187,ES_MULTILINE | ES_WANTRETURN | 
+                    WS_VSCROLL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_DISPINFO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 297
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 194
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE 4, 2
+#pragma code_page(936)
+#endif //_WIN32
+#include "res\DShowTest.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.chs\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
